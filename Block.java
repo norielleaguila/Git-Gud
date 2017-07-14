@@ -6,19 +6,19 @@ public class Block {
 	private int row, col;
 	
 	public Block(){
-		marker = " ";
+		marker = "_";
 		flipBlock = false;
 	}
 	
 	public Block(int r, int c){
-		marker = " ";
+		marker = "_";
 		flipBlock = false;
 		row = r;
 		col = c;
 	}
 	
 	public Block(boolean f, int r, int c){
-		marker = " ";
+		marker = "_";
 		flipBlock = f;
 		row = r;
 		col = c;

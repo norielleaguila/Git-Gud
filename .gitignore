@@ -20,3 +20,7 @@
 *.xml
 *.setup
 *.ini
+/Block.class
+/Board.class
+/Game.class
+/Main.class

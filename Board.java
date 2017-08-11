@@ -1,9 +1,9 @@
-package tictactoe;
+
 
 public class Board {
 
 	private Block[][] blocks = new Block[3][3];
-	
+
 	public Board(){
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++){
@@ -11,11 +11,11 @@ public class Board {
 			}
 		}
 	}
-	
+
 	public void chooseFlip(boolean middle){
-		
+
 	}
-	
+
 	public void drawBoard(){
 		for(int i = 0; i < 3; i++){
 			System.out.print(" |");
@@ -25,11 +25,11 @@ public class Board {
 			System.out.println();
 		}
 	}
-	
+
 	public Block getBlock(int row, int col){
 		return blocks[row][col];
 	}
-	
+
 	public void setBlock(int row, int col, int player){
 		if(player == 1){
 			blocks[row][col].setMarker("x");
@@ -38,5 +38,5 @@ public class Board {
 			blocks[row][col].setMarker("o");
 		}
 	}
-	
+
 }

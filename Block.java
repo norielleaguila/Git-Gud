@@ -1,22 +1,22 @@
-package tictactoe;
+
 
 public class Block {
 	private String marker;
 	private boolean flipBlock;
 	private int row, col;
-	
+
 	public Block(){
 		marker = "_";
 		flipBlock = false;
 	}
-	
+
 	public Block(int r, int c){
 		marker = "_";
 		flipBlock = false;
 		row = r;
 		col = c;
 	}
-	
+
 	public Block(boolean f, int r, int c){
 		marker = "_";
 		flipBlock = f;

@@ -111,7 +111,7 @@ public class Game {
 		if(boards[0].getBlock(row, col).getMarker().equals(marker)&& boards[1].getBlock(row, col).getMarker().equals(marker) && boards[2].getBlock(row, col).getMarker().equals(marker))
 			return true;
 
-		// check if 1 row is straight = xxx or diagonally = xxx
+		// check if 1 row is straight = xxx 
 		else if(col == 0){
 			if(boards[0].getBlock(row, col+1).getMarker().equals(marker) && boards[0].getBlock(row, col+2).getMarker().equals(marker))
 				return true;
@@ -137,7 +137,7 @@ public class Game {
 				return true;
 		}
 
-		// check if 1 col is straight = xxx or diagonally = xxx
+		// check if 1 col is straight = xxx 
 		if(row == 0){
 			if(boards[0].getBlock(row+1, col).getMarker().equals(marker) && boards[0].getBlock(row+2, col).getMarker().equals(marker))
 				return true;

@@ -47,21 +47,28 @@ public class Game {
 			}
 
 			boolean flag = false;
-			int row, col, bNum, temp;
+			int row, col, bNum, temp = -1;
 			Board b;
 
 			do{
 				System.out.print("Choose board: ");
 				do{
 					input = sc.nextLine();
-					temp = Integer.parseInt(input) - 1;
-				}while(input.equals("") || temp < 0 || temp > 2);
-				
-				if(input.equals("F") || input.equals("f")){
-					flag = true;
-					done = true;
-				}
 
+					if(input.equals("F") || input.equals("f")){
+						if(player == 1)
+							player = 2;
+						else
+							player = 1;
+						
+						System.out.println("Player " + player + " wins!");
+						System.exit(0);
+					}
+					else if(!input.equals(""))
+						temp = Integer.parseInt(input) - 1;
+					
+				}while((input.equals("") || temp < 0 || temp > 2) && !flag);
+				
 				bNum = temp;
 				b = boards[bNum];
 
@@ -83,7 +90,7 @@ public class Game {
 					flag = true;
 				else
 					System.out.println("Please enter a valid block.");
-
+				
 			}while(!flag);
 
 			b.setBlock(row, col, player);

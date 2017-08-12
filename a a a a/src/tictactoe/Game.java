@@ -149,7 +149,7 @@ public class Game {
 				return true;
 		}
 
-		// check if 1 row is straight = xxx 
+		// check if 1 col is straight = xxx 
 		if(row == 0){
 			if(boards[0].getBlock(row+1, col).getMarker().equals(marker) && boards[0].getBlock(row+2, col).getMarker().equals(marker))
 				return true;
@@ -191,7 +191,6 @@ public class Game {
 			return true;
 		
 		// check corner to corner = xxx
-
 		// check first if middle block has the marker
 		if(boards[1].getBlock(1, 1).getMarker().equals(marker)){
 			if(boards[0].getBlock(0, 0).getMarker().equals(marker) &&
@@ -211,8 +210,13 @@ public class Game {
 				return true;
 		}
 		
-		
-		
+		// check diagonally across the board = xxx
+		for(int i = 0; i < 3; i++){
+			if(boards[0].getBlock(0, i).getMarker().equals(marker) &&
+					boards[1].getBlock(1, i).getMarker().equals(marker) &&
+					boards[2].getBlock(2, i).getMarker().equals(marker))
+				return true;
+		}
 
 		return false;
 	}

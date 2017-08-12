@@ -47,34 +47,37 @@ public class Game {
 			}
 
 			boolean flag = false;
-			int row, col, bNum;
+			int row, col, bNum, temp;
 			Board b;
 
 			do{
 				System.out.print("Choose board: ");
 				do{
 					input = sc.nextLine();
-				}while(input.equals(""));
+					temp = Integer.parseInt(input) - 1;
+				}while(input.equals("") || temp < 0 || temp > 2);
 				
 				if(input.equals("F") || input.equals("f")){
 					flag = true;
 					done = true;
 				}
 
-				bNum = Integer.parseInt(input);
-				b = boards[ bNum -1];
+				bNum = temp;
+				b = boards[bNum];
 
 				System.out.print("Choose row: ");
 				do{
 					input = sc.nextLine();
-				}while(input.equals(""));
-				row = Integer.parseInt(input) - 1;
+					temp = Integer.parseInt(input) - 1;
+				}while(input.equals("") || temp < 0 || temp > 2);
+				row = temp;
 
 				System.out.print("Choose col: ");
 				do{
 					input = sc.nextLine();
-				}while(input.equals(""));
-				col = Integer.parseInt(input) - 1;
+					temp = Integer.parseInt(input) - 1;
+				}while(input.equals("") || temp < 0 || temp > 2);
+				col = temp;
 
 				if(b.getBlock(row, col).getMarker().equals("_"))
 					flag = true;
@@ -95,10 +98,7 @@ public class Game {
 				else{
 					player = 2;
 					// wait for input before looping
-					do{
-						input = sc.nextLine();
-					}while(input.equals(""));
-					
+					input = sc.nextLine();
 				}
 			}
 			else{
@@ -108,9 +108,7 @@ public class Game {
 				else{
 					player = 1;
 					// wait for input before looping
-					do{
-						input = sc.nextLine();
-					}while(input.equals(""));
+					input = sc.nextLine();
 				}
 			}
 
@@ -185,78 +183,36 @@ public class Game {
 		if(boards[2].getBlock(0, 0).getMarker().equals(marker) && boards[2].getBlock(1, 1).getMarker().equals(marker) && boards[2].getBlock(2, 2).getMarker().equals(marker))
 			return true;
 		
-		if(boards[0].getBlock(1, 2).getMarker().equals(marker) && boards[0].getBlock(1, 1).getMarker().equals(marker) && boards[0].getBlock(2, 1).getMarker().equals(marker))
+		if(boards[0].getBlock(0, 2).getMarker().equals(marker) && boards[0].getBlock(1, 1).getMarker().equals(marker) && boards[0].getBlock(2, 0).getMarker().equals(marker))
 			return true;
-		if(boards[1].getBlock(1, 2).getMarker().equals(marker) && boards[1].getBlock(1, 1).getMarker().equals(marker) && boards[1].getBlock(2, 1).getMarker().equals(marker))
+		if(boards[1].getBlock(0, 2).getMarker().equals(marker) && boards[1].getBlock(1, 1).getMarker().equals(marker) && boards[1].getBlock(2, 0).getMarker().equals(marker))
 			return true;
-		if(boards[2].getBlock(1, 2).getMarker().equals(marker) && boards[2].getBlock(1, 1).getMarker().equals(marker) && boards[2].getBlock(2, 1).getMarker().equals(marker))
+		if(boards[2].getBlock(0, 2).getMarker().equals(marker) && boards[2].getBlock(1, 1).getMarker().equals(marker) && boards[2].getBlock(2, 0).getMarker().equals(marker))
 			return true;
 		
 		// check corner to corner = xxx
 
-		// check first if middle block is does not have the marker
-		// so you don't have to check it every time
-		if(!boards[1].getBlock(1, 1).getMarker().equals(marker))
-			return false;
-
-		if(board == 0 && row == 0 && col == 0){
-			if(boards[0].getBlock(row, col).getMarker().equals(marker) &&
-					boards[2].getBlock(row+2, col+2).getMarker().equals(marker)){
+		// check first if middle block has the marker
+		if(boards[1].getBlock(1, 1).getMarker().equals(marker)){
+			if(boards[0].getBlock(0, 0).getMarker().equals(marker) &&
+					boards[2].getBlock(2, 2).getMarker().equals(marker))
 				return true;
-			}
-			else return false;
-		}
-		else if(board == 0 && row == 2 && col == 0){
-			if(boards[0].getBlock(row, col).getMarker().equals(marker) &&
-					boards[2].getBlock(row-2, col+2).getMarker().equals(marker)){
+			
+			if(boards[0].getBlock(2, 0).getMarker().equals(marker) &&
+					boards[2].getBlock(0, 2).getMarker().equals(marker))
 				return true;
-			}
-			else return false;
-		}
-		else if(board == 0 && row == 0 && col == 2){
-			if(boards[0].getBlock(row, col).getMarker().equals(marker) &&
-					boards[2].getBlock(row+2, col-2).getMarker().equals(marker)){
+			
+			if(boards[0].getBlock(0, 2).getMarker().equals(marker) &&
+					boards[2].getBlock(2, 0).getMarker().equals(marker))
 				return true;
-			}
-			else return false;
-		}
-		else if(board == 0 && row == 2 && col == 2){
-			if(boards[0].getBlock(row, col).getMarker().equals(marker) &&
-					boards[2].getBlock(row-2, col-2).getMarker().equals(marker)){
+			
+			if(boards[0].getBlock(2, 2).getMarker().equals(marker) &&
+					boards[2].getBlock(0, 0).getMarker().equals(marker))
 				return true;
-			}
-			else return false;
 		}
-
-		// check board
-		if(board == 2 && row == 0 && col == 0){
-			if(boards[2].getBlock(row, col).getMarker().equals(marker) &&
-					boards[0].getBlock(row+2, col+2).getMarker().equals(marker)){
-				return true;
-			}
-			else return false;
-		}
-		else if(board == 2 && row == 2 && col == 0){
-			if(boards[2].getBlock(row, col).getMarker().equals(marker) &&
-					boards[0].getBlock(row-2, col+2).getMarker().equals(marker)){
-				return true;
-			}
-			else return false;
-		}
-		else if(board == 2 && row == 0 && col == 2){
-			if(boards[2].getBlock(row, col).getMarker().equals(marker) &&
-					boards[0].getBlock(row+2, col-2).getMarker().equals(marker)){
-				return true;
-			}
-			else return false;
-		}
-		else if(board == 2 && row == 2 && col == 2){
-			if(boards[2].getBlock(row, col).getMarker().equals(marker) &&
-					boards[0].getBlock(row-2, col-2).getMarker().equals(marker)){
-				return true;
-			}
-			else return false;
-		}
+		
+		
+		
 
 		return false;
 	}

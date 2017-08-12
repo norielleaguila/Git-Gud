@@ -1,4 +1,4 @@
-
+package tictactoe;
 import java.util.Scanner;
 
 public class Game {
@@ -27,6 +27,8 @@ public class Game {
 
 	public void start(){
 
+		boolean done = false;
+		
 		do{
 			System.out.println("\nPlayer " + player);
 			System.out.println("Press F to forfeit.");
@@ -50,17 +52,28 @@ public class Game {
 
 			do{
 				System.out.print("Choose board: ");
-				input = sc.nextLine();
+				do{
+					input = sc.nextLine();
+				}while(input.equals(""));
+				
+				if(input.equals("F") || input.equals("f")){
+					flag = true;
+					done = true;
+				}
 
 				bNum = Integer.parseInt(input);
 				b = boards[ bNum -1];
 
 				System.out.print("Choose row: ");
-				input = sc.nextLine();
+				do{
+					input = sc.nextLine();
+				}while(input.equals(""));
 				row = Integer.parseInt(input) - 1;
 
 				System.out.print("Choose col: ");
-				input = sc.nextLine();
+				do{
+					input = sc.nextLine();
+				}while(input.equals(""));
 				col = Integer.parseInt(input) - 1;
 
 				if(b.getBlock(row, col).getMarker().equals("_"))
@@ -77,30 +90,31 @@ public class Game {
 
 			if(player == 1){
 				if(checkWin(row, col, bNum-1, "x")){
-					input = "W";
-					System.out.println(input);
-					reset(1);
+					done = true;
 				}
 				else{
 					player = 2;
 					// wait for input before looping
-					input = sc.nextLine();
+					do{
+						input = sc.nextLine();
+					}while(input.equals(""));
+					
 				}
 			}
 			else{
-				player = 1;
 				if(checkWin(row, col, bNum-1, "o")){
-					input = "W";
-					reset(2);
+					done = true;
 				}
 				else{
 					player = 1;
 					// wait for input before looping
-					input = sc.nextLine();
+					do{
+						input = sc.nextLine();
+					}while(input.equals(""));
 				}
 			}
 
-		}while(input != "F" || input != "f" || input != "W");
+		}while(!done);
 
 		System.out.println("Player " + player + " wins!");
 		sc.close();
@@ -112,7 +126,7 @@ public class Game {
 			return true;
 
 		// check if 1 row is straight = xxx 
-		else if(col == 0){
+		if(col == 0){
 			if(boards[0].getBlock(row, col+1).getMarker().equals(marker) && boards[0].getBlock(row, col+2).getMarker().equals(marker))
 				return true;
 			else if(boards[1].getBlock(row, col+1).getMarker().equals(marker) && boards[1].getBlock(row, col+2).getMarker().equals(marker))	
@@ -137,7 +151,7 @@ public class Game {
 				return true;
 		}
 
-		// check if 1 col is straight = xxx 
+		// check if 1 row is straight = xxx 
 		if(row == 0){
 			if(boards[0].getBlock(row+1, col).getMarker().equals(marker) && boards[0].getBlock(row+2, col).getMarker().equals(marker))
 				return true;
@@ -161,8 +175,23 @@ public class Game {
 				return true;
 			if(boards[2].getBlock(row-1, col).getMarker().equals(marker) && boards[2].getBlock(row-2, col).getMarker().equals(marker))
 				return true;
-		}		
-
+		}
+		
+		// check diagonals
+		if(boards[0].getBlock(0, 0).getMarker().equals(marker) && boards[0].getBlock(1, 1).getMarker().equals(marker) && boards[0].getBlock(2, 2).getMarker().equals(marker))
+			return true;
+		if(boards[1].getBlock(0, 0).getMarker().equals(marker) && boards[1].getBlock(1, 1).getMarker().equals(marker) && boards[1].getBlock(2, 2).getMarker().equals(marker))
+			return true;
+		if(boards[2].getBlock(0, 0).getMarker().equals(marker) && boards[2].getBlock(1, 1).getMarker().equals(marker) && boards[2].getBlock(2, 2).getMarker().equals(marker))
+			return true;
+		
+		if(boards[0].getBlock(1, 2).getMarker().equals(marker) && boards[0].getBlock(1, 1).getMarker().equals(marker) && boards[0].getBlock(2, 1).getMarker().equals(marker))
+			return true;
+		if(boards[1].getBlock(1, 2).getMarker().equals(marker) && boards[1].getBlock(1, 1).getMarker().equals(marker) && boards[1].getBlock(2, 1).getMarker().equals(marker))
+			return true;
+		if(boards[2].getBlock(1, 2).getMarker().equals(marker) && boards[2].getBlock(1, 1).getMarker().equals(marker) && boards[2].getBlock(2, 1).getMarker().equals(marker))
+			return true;
+		
 		// check corner to corner = xxx
 
 		// check first if middle block is does not have the marker

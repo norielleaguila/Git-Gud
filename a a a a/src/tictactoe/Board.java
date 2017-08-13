@@ -1,4 +1,3 @@
-package tictactoe;
 
 public class Board {
 
@@ -8,12 +7,9 @@ public class Board {
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++){
 				blocks[i][j] = new Block(i, j);
+				
 			}
 		}
-	}
-
-	public void chooseFlip(boolean middle){
-
 	}
 
 	public void drawBoard(){
@@ -37,6 +33,16 @@ public class Board {
 		else{
 			blocks[row][col].setMarker("o");
 		}
+	}
+	
+	public void initializeFlipBlocks(){
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				if((i == 1 && j == 1)||(i==0 && j==1)||(i==1 && j==0)||(i==1 && j==2)||(i==2&&j==1))
+					blocks[i][j].setFlipBlock(true);
+			}
+		}
+		
 	}
 
 }
